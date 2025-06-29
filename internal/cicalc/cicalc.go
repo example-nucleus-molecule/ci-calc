@@ -1,9 +1,7 @@
 // Package cicalc implements a compound interest calculator.
 package cicalc
 
-import (
-	"math"
-)
+import "math"
 
 type Frequency int
 
