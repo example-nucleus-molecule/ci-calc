@@ -1,6 +1,9 @@
 package cicalc
 
-import "testing"
+import (
+	"math/big"
+	"testing"
+)
 
 func TestPeriodic(t *testing.T) {
 	testCases := []struct {
@@ -39,6 +42,13 @@ func TestPeriodic(t *testing.T) {
 			term:      5,
 			freq:      AtMaturity,
 			expected:  12500,
+		}, {
+			name:      "with a fractional term",
+			principal: 29200,
+			rate:      7.79,
+			term:      3 + getMonth(5), // 3 years + 5 months
+			freq:      Quarterly,
+			expected:  38007,
 		},
 	}
 
@@ -50,5 +60,9 @@ func TestPeriodic(t *testing.T) {
 			}
 		})
 	}
+}
 
+func getMonth(month int) float64 {
+	res, _ := big.NewRat(int64(month), 12).Float64()
+	return res
 }
