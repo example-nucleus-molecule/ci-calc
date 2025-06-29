@@ -20,6 +20,10 @@ const (
 func Periodic(
 	principal float64, rate float64, term float64, freq Frequency,
 ) int {
-	floatFreq := float64(freq)
-	return int(math.Round(principal * math.Pow(1+((rate/100)/floatFreq), term*floatFreq)))
+	if freq == AtMaturity {
+		return int(math.Round(principal + (principal * (rate / 100) * term)))
+	} else {
+		floatFreq := float64(freq)
+		return int(math.Round(principal * math.Pow(1+((rate/100)/floatFreq), term*floatFreq)))
+	}
 }
